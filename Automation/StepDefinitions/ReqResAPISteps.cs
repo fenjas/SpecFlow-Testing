@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Configuration;
 using TechTalk.SpecFlow;
 
@@ -12,6 +11,7 @@ namespace Automation.StepDefinitions
         private string _password = string.Empty;
         private string _response = string.Empty;
         private string _parameter = string.Empty;
+        private System.Net.HttpStatusCode _httpCode = System.Net.HttpStatusCode.NotFound;
 
         static string endPoint = ConfigurationManager.AppSettings["endpoint_reqres"];
         Helpers.RestApi restapi = new Helpers.RestApi(endPoint);
@@ -33,25 +33,25 @@ namespace Automation.StepDefinitions
         [When(@"the register api call is made using POST")]
         public void WhenTheRegisterApiCallIsMadeUsingPOST()
         {
-            _response = restapi.Register(_username, _password);
+            _response = restapi.Register(_username, _password, out _httpCode);
         }
         
         [When(@"the users api call is made using GET")]
         public void WhenTheUsersApiCallIsMadeUsingGET()
         {
-            _response = restapi.GetUsers(true);
+            _response = restapi.GetUsers(true, out _httpCode);
         }
-        
+
         [Then(@"the response code should be (.*)")]
         public void ThenTheResponseCodeShouldBe(int p0)
         {
-            Assert.AreEqual(p0, _response);
+            Assert.AreEqual(p0, (int)_httpCode);
         }
         
         [Then(@"the response code should be (.*) and a list of users is returned")]
         public void ThenTheResponseCodeShouldBeAndAListOfUsersIsReturned(int p0)
         {
-            Assert.AreEqual(p0, _response);
+            Assert.AreEqual(p0, (int)_httpCode);
         }
     }
 }

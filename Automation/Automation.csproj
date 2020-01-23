@@ -110,21 +110,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\ReqResAPI.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReqResAPI.feature</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\RestApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ReqResAPISteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\ReqResAPI.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ReqResAPI.feature.cs</LastGenOutput>
-    </None>
+    <None Include="Features\ReqResAPI.feature" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
