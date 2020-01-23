@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Configuration;
 using TechTalk.SpecFlow;
 
@@ -7,11 +9,13 @@ namespace Automation.StepDefinitions
     [Binding]
     public class ReqResAPISteps
     {
+        private bool fullListOfUsersReturned = false;
         private string _username = string.Empty;
         private string _password = string.Empty;
         private string _response = string.Empty;
         private string _parameter = string.Empty;
-        private System.Net.HttpStatusCode _httpCode = System.Net.HttpStatusCode.NotFound;
+        private Models.RootObject _userdata;
+        private System.Net.HttpStatusCode _httpCode = (int)0;
 
         static string endPoint = ConfigurationManager.AppSettings["endpoint_reqres"];
         Helpers.RestApi restapi = new Helpers.RestApi(endPoint);
@@ -40,7 +44,9 @@ namespace Automation.StepDefinitions
         public void WhenTheUsersApiCallIsMadeUsingGET()
         {
             _response = restapi.GetUsers(true, out _httpCode);
-        }
+            _userdata = JsonConvert.DeserializeObject<Models.RootObject>(_response);
+           
+         }
 
         [Then(@"the response code should be (.*)")]
         public void ThenTheResponseCodeShouldBe(int p0)
@@ -52,6 +58,13 @@ namespace Automation.StepDefinitions
         public void ThenTheResponseCodeShouldBeAndAListOfUsersIsReturned(int p0)
         {
             Assert.AreEqual(p0, (int)_httpCode);
+            Assert.IsTrue(fullListOfUsersReturned);
+        }
+
+        [Then(@"the total amount of users should be (.*)")]
+        public void ThenTheTotalAmountOfUsersShouldBe(int p0)
+        {
+            Assert.AreEqual(_userdata.data.Length,p0);
         }
     }
 }

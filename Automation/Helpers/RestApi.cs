@@ -10,24 +10,21 @@ namespace Automation.Helpers
 {
     class RestApi
     {
-        public string endPoint;
+        private string _endPoint;
+        private string apiCall = string.Empty;
 
         public RestApi(string endPoint)
         {
-            this.endPoint = endPoint;
+            _endPoint = endPoint;
         }
-
-        private readonly string endpoint = ConfigurationManager.AppSettings["endpoint_reqres"];
-        private string apiService = string.Empty;
-        private string apiCall = string.Empty;
-
+        
         //API call --> https://reqres.in/api/users?page=2
         public string GetUsers(bool getAllUsers, out System.Net.HttpStatusCode httpCode)
         {
             apiCall = @"/api/users";
-            if (getAllUsers) apiService += "?per_page=12";
+            if (getAllUsers) apiCall += "?per_page=12";
 
-            var restClient = new RestClient(endpoint) { Timeout = -1 };
+            var restClient = new RestClient(_endPoint) { Timeout = -1 };
             var request = new RestRequest(apiCall, Method.GET);
             IRestResponse response = restClient.Execute(request);
             httpCode = response.StatusCode;
@@ -43,7 +40,7 @@ namespace Automation.Helpers
         {
             apiCall = @"api/register";
 
-            var restClient = new RestClient(endpoint) { Timeout = -1 };
+            var restClient = new RestClient(_endPoint) { Timeout = -1 };
             var request = new RestRequest(apiCall, Method.POST);
             request.AddHeader("Content-Type", "application/json");
             request.AddParameter("application/json", $"{{\n    \"email\": \"{userName}\",\n    \"password\": \"{password}\"\n}}", ParameterType.RequestBody);

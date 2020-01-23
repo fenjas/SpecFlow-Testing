@@ -13,4 +13,9 @@
 	Scenario:  Return all users
 	Given parameter "per_page=100" is included in the header
 	When the users api call is made using GET
-	Then the response code should be 200 and a list of users is returned
+	Then the response code should be 200
+
+	Scenario:  Return all users and verify exact amount
+	Given parameter "per_page=100" is included in the header
+	When the users api call is made using GET
+	Then the total amount of users should be 12
