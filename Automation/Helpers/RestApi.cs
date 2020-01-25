@@ -17,7 +17,7 @@ namespace Automation.Helpers
         {
             _endPoint = endPoint;
         }
-        
+
         //API call --> https://reqres.in/api/users?page=2
         public string GetUsers(bool getAllUsers, out System.Net.HttpStatusCode httpCode)
         {
@@ -36,7 +36,7 @@ namespace Automation.Helpers
         }
 
         //API call --> https://reqres.in/api/register
-        public string Register(string userName, string password, out System.Net.HttpStatusCode httpCode)
+        public string Register(string userName, string password, out System.Net.HttpStatusCode httpCode, out string token)
         {
             apiCall = @"api/register";
 
@@ -46,9 +46,20 @@ namespace Automation.Helpers
             request.AddParameter("application/json", $"{{\n    \"email\": \"{userName}\",\n    \"password\": \"{password}\"\n}}", ParameterType.RequestBody);
             IRestResponse response = restClient.Execute(request);
             httpCode = response.StatusCode;
+            Logger.Log($"Register API call returned httpcode : {(int)httpCode}");
 
-            Logger.Log($"Register call returned httpcode : {(int)httpCode}");
-            Logger.Log($"Register call returned data     : {response.Content}");
+            if (!response.Content.ToLower().Contains("error"))
+            {
+                token = response.Content.Replace("{", "").Replace("}", "").Split(':')[2].Trim().Replace("\"", "");
+                Logger.Log($"Register API call returned token    : {token}");
+            }
+            else
+            {
+                token = response.Content.Replace("{", "").Replace("}", "").Split(':')[2].Trim().Replace("\"", "");
+                Logger.Log($"Register API call returned error    : {token}");
+            }
+
+            Logger.Log($"Register API call returned data     : {response.Content}");
 
             return response.Content;
         }

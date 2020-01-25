@@ -102,17 +102,17 @@ namespace Automation.Features
  testRunner.When("the register api call is made using POST", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("the response code should be 200", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response code should be 200  and the token should be \"QpwL5tke4Pnpja7X4\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Unsuccessful Registration", SourceLine=7)]
-        public virtual void UnsuccessfulRegistration()
+        [TechTalk.SpecRun.ScenarioAttribute("Unsuccessful Registration using wrong credentials", SourceLine=7)]
+        public virtual void UnsuccessfulRegistrationUsingWrongCredentials()
         {
             string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unsuccessful Registration", null, ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Unsuccessful Registration using wrong credentials", null, ((string[])(null)));
 #line 8
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -134,13 +134,14 @@ namespace Automation.Features
             {
                 this.ScenarioStart();
 #line 9
- testRunner.Given("username \"eve.holt@reqres.in\" and password \"wrongpassword\" as inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("username \"eve.holt2222@reqres.in\" and password \"wrongpassw22ord\" as inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 10
  testRunner.When("the register api call is made using POST", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("the response code should be 400", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response code should be 400 and error \"Only defined users succeed registratio" +
+                        "n\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
