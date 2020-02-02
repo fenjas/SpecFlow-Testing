@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using TechTalk.SpecFlow;
 
-namespace Automation.StepDefinitions
+namespace SpecFlow.StepDefinitions
 {
     [Binding]
     public class ReqResAPISteps

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using System.Configuration;
 
-namespace Automation.Helpers
+namespace SpecFlow.Helpers
 {
     class RestApi
     {

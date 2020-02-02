@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Automation.Models
+namespace SpecFlow.Models
 {
     class User
     {
